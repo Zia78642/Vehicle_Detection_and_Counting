@@ -5,7 +5,7 @@ import time
 import vehicles
 
 #---------------------------------------------------VARIABLE DECLARATIONS-------------------------------------------------------------------------------
-cap=cv2.VideoCapture("./Videos/video.mp4") 
+cap=cv2.VideoCapture("../Videos/video.mp4") 
 fgbg=cv2.createBackgroundSubtractorMOG2(detectShadows=False,history=200,varThreshold = 90)
 kernalOp = np.ones((3,3),np.uint8)
 kernalOp2 = np.ones((5,5),np.uint8)
@@ -30,6 +30,9 @@ if (cap.isOpened()== False):
 
 while(cap.isOpened()):
     ret,frame=cap.read() 
+    if not ret or frame is None:
+        print("Error: Could not read frame.")
+        break  # or continue, depending on your loop
     frame=cv2.resize(frame,(900,500))
     for i in cars:
         i.age_one()
